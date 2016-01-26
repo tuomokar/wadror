@@ -1,0 +1,303 @@
+# Tästä jäikin tuo panimon teko pois kun vähän töppäilin ja sitten tuli
+# töppäiltyä lisää hassuja, mutta kaikki tuli tehtyä loppujen lopuksi
+
+irb(main):054:0> b
+=> #<Brewery id: 5, name: "BrewDog", year: 2007, created_at: "2016-01-25 13:55:4
+1", updated_at: "2016-01-25 13:55:41">
+irb(main):055:0> b.beers.delete
+=> []
+irb(main):056:0> b.beers
+=> #<ActiveRecord::Associations::CollectionProxy [#<Beer id: nil, name: "Punk IP
+A", style: "IPA", brewery_id: 5, created_at: nil, updated_at: nil>]>
+irb(main):057:0> b.beers.each
+=> #<Enumerator: [#<Beer id: nil, name: "Punk IPA", style: "IPA", brewery_id: 5,
+ created_at: nil, updated_at: nil>]:each>
+irb(main):058:0> b.beers.each(&:delete)
+=> [#<Beer id: nil, name: "Punk IPA", style: "IPA", brewery_id: 5, created_at: n
+il, updated_at: nil>]
+irb(main):059:0> b.beers
+=> #<ActiveRecord::Associations::CollectionProxy [#<Beer id: nil, name: "Punk IP
+A", style: "IPA", brewery_id: 5, created_at: nil, updated_at: nil>]>
+irb(main):060:0> b
+=> #<Brewery id: 5, name: "BrewDog", year: 2007, created_at: "2016-01-25 13:55:4
+1", updated_at: "2016-01-25 13:55:41">
+irb(main):061:0> ide = b.select{ |bee| bee.id.nil? }
+NoMethodError: private method `select' called for #<Brewery:0x65af018>
+        from C:/RailsInstaller/Ruby2.1.0/lib/ruby/gems/2.1.0/gems/activemodel-4.
+1.8/lib/active_model/attribute_methods.rb:432:in `method_missing'
+        from C:/RailsInstaller/Ruby2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4
+.1.8/lib/active_record/attribute_methods.rb:213:in `method_missing'
+        from (irb):61
+        from C:/RailsInstaller/Ruby2.1.0/lib/ruby/gems/2.1.0/gems/railties-4.1.8
+/lib/rails/commands/console.rb:90:in `start'
+        from C:/RailsInstaller/Ruby2.1.0/lib/ruby/gems/2.1.0/gems/railties-4.1.8
+/lib/rails/commands/console.rb:9:in `start'
+        from C:/RailsInstaller/Ruby2.1.0/lib/ruby/gems/2.1.0/gems/railties-4.1.8
+/lib/rails/commands/commands_tasks.rb:69:in `console'
+        from C:/RailsInstaller/Ruby2.1.0/lib/ruby/gems/2.1.0/gems/railties-4.1.8
+/lib/rails/commands/commands_tasks.rb:40:in `run_command!'
+        from C:/RailsInstaller/Ruby2.1.0/lib/ruby/gems/2.1.0/gems/railties-4.1.8
+/lib/rails/commands.rb:17:in `<top (required)>'
+        from bin/rails:4:in `require'
+        from bin/rails:4:in `<main>'
+irb(main):062:0> ide = b.beers.select{ |bee| bee.id.nil? }
+=> [#<Beer id: nil, name: "Punk IPA", style: "IPA", brewery_id: 5, created_at: n
+il, updated_at: nil>]
+irb(main):063:0>
+irb(main):064:0* ide
+=> [#<Beer id: nil, name: "Punk IPA", style: "IPA", brewery_id: 5, created_at: n
+il, updated_at: nil>]
+irb(main):065:0> ide.each{ |tuho| tuho.delete }
+=> [#<Beer id: nil, name: "Punk IPA", style: "IPA", brewery_id: 5, created_at: n
+il, updated_at: nil>]
+irb(main):066:0>
+irb(main):067:0* ide
+=> [#<Beer id: nil, name: "Punk IPA", style: "IPA", brewery_id: 5, created_at: n
+il, updated_at: nil>]
+irb(main):068:0> ide.each{ |tuho| tuho.destroy }
+   (0.0ms)  begin transaction
+   (0.0ms)  commit transaction
+=> [#<Beer id: nil, name: "Punk IPA", style: "IPA", brewery_id: 5, created_at: n
+il, updated_at: nil>]
+irb(main):069:0>
+irb(main):070:0* ide
+=> [#<Beer id: nil, name: "Punk IPA", style: "IPA", brewery_id: 5, created_at: n
+il, updated_at: nil>]
+irb(main):071:0>
+irb(main):072:0*
+irb(main):073:0*
+irb(main):074:0* ide
+=> [#<Beer id: nil, name: "Punk IPA", style: "IPA", brewery_id: 5, created_at: n
+il, updated_at: nil>]
+irb(main):075:0> ide.first
+=> #<Beer id: nil, name: "Punk IPA", style: "IPA", brewery_id: 5, created_at: ni
+l, updated_at: nil>
+irb(main):076:0>
+irb(main):077:0* ide.first.save
+   (0.0ms)  begin transaction
+   (0.0ms)  rollback transaction
+RuntimeError: can't modify frozen Hash
+        from C:/RailsInstaller/Ruby2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4
+.1.8/lib/active_record/attribute_methods/write.rb:91:in `write_attribute_with_ty
+pe_cast'
+        from C:/RailsInstaller/Ruby2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4
+.1.8/lib/active_record/attribute_methods/write.rb:58:in `write_attribute'
+        from C:/RailsInstaller/Ruby2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4
+.1.8/lib/active_record/attribute_methods/dirty.rb:68:in `write_attribute'
+        from C:/RailsInstaller/Ruby2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4
+.1.8/lib/active_record/timestamp.rb:52:in `block in _create_record'
+        from C:/RailsInstaller/Ruby2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4
+.1.8/lib/active_record/timestamp.rb:50:in `each'
+        from C:/RailsInstaller/Ruby2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4
+.1.8/lib/active_record/timestamp.rb:50:in `_create_record'
+        from C:/RailsInstaller/Ruby2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4
+.1.8/lib/active_record/persistence.rb:483:in `create_or_update'
+        from C:/RailsInstaller/Ruby2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4
+.1.8/lib/active_record/callbacks.rb:302:in `block in create_or_update'
+        from C:/RailsInstaller/Ruby2.1.0/lib/ruby/gems/2.1.0/gems/activesupport-
+4.1.8/lib/active_support/callbacks.rb:113:in `call'
+        from C:/RailsInstaller/Ruby2.1.0/lib/ruby/gems/2.1.0/gems/activesupport-
+4.1.8/lib/active_support/callbacks.rb:113:in `call'
+        from C:/RailsInstaller/Ruby2.1.0/lib/ruby/gems/2.1.0/gems/activesupport-
+4.1.8/lib/active_support/callbacks.rb:166:in `block in halting'
+        from C:/RailsInstaller/Ruby2.1.0/lib/ruby/gems/2.1.0/gems/activesupport-
+4.1.8/lib/active_support/callbacks.rb:166:in `call'
+        from C:/RailsInstaller/Ruby2.1.0/lib/ruby/gems/2.1.0/gems/activesupport-
+4.1.8/lib/active_support/callbacks.rb:166:in `block in halting'
+        from C:/RailsInstaller/Ruby2.1.0/lib/ruby/gems/2.1.0/gems/activesupport-
+4.1.8/lib/active_support/callbacks.rb:86:in `call'
+        from C:/RailsInstaller/Ruby2.1.0/lib/ruby/gems/2.1.0/gems/activesupport-
+4.1.8/lib/active_support/callbacks.rb:86:in `run_callbacks'
+        from C:/RailsInstaller/Ruby2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4
+.1.8/lib/active_record/callbacks.rb:302:in `create_or_update'
+... 5 levels...
+        from C:/RailsInstaller/Ruby2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4
+.1.8/lib/active_record/connection_adapters/abstract/database_statements.rb:201:i
+n `block in transaction'
+        from C:/RailsInstaller/Ruby2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4
+.1.8/lib/active_record/connection_adapters/abstract/database_statements.rb:209:i
+n `within_new_transaction'
+        from C:/RailsInstaller/Ruby2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4
+.1.8/lib/active_record/connection_adapters/abstract/database_statements.rb:201:i
+n `transaction'
+        from C:/RailsInstaller/Ruby2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4
+.1.8/lib/active_record/transactions.rb:208:in `transaction'
+        from C:/RailsInstaller/Ruby2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4
+.1.8/lib/active_record/transactions.rb:326:in `with_transaction_returning_status
+'
+        from C:/RailsInstaller/Ruby2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4
+.1.8/lib/active_record/transactions.rb:268:in `block in save'
+        from C:/RailsInstaller/Ruby2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4
+.1.8/lib/active_record/transactions.rb:283:in `rollback_active_record_state!'
+        from C:/RailsInstaller/Ruby2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4
+.1.8/lib/active_record/transactions.rb:267:in `save'
+        from (irb):77
+        from C:/RailsInstaller/Ruby2.1.0/lib/ruby/gems/2.1.0/gems/railties-4.1.8
+/lib/rails/commands/console.rb:90:in `start'
+        from C:/RailsInstaller/Ruby2.1.0/lib/ruby/gems/2.1.0/gems/railties-4.1.8
+/lib/rails/commands/console.rb:9:in `start'
+        from C:/RailsInstaller/Ruby2.1.0/lib/ruby/gems/2.1.0/gems/railties-4.1.8
+/lib/rails/commands/commands_tasks.rb:69:in `console'
+        from C:/RailsInstaller/Ruby2.1.0/lib/ruby/gems/2.1.0/gems/railties-4.1.8
+/lib/rails/commands/commands_tasks.rb:40:in `run_command!'
+        from C:/RailsInstaller/Ruby2.1.0/lib/ruby/gems/2.1.0/gems/railties-4.1.8
+/lib/rails/commands.rb:17:in `<top (required)>'
+        from bin/rails:4:in `require'
+        from bin/rails:4:in `<main>'irb(main):078:0>
+irb(main):079:0*
+irb(main):080:0* b
+=> #<Brewery id: 5, name: "BrewDog", year: 2007, created_at: "2016-01-25 13:55:4
+1", updated_at: "2016-01-25 13:55:41">
+irb(main):081:0> b.beers
+=> #<ActiveRecord::Associations::CollectionProxy [#<Beer id: nil, name: "Punk IP
+A", style: "IPA", brewery_id: 5, created_at: nil, updated_at: nil>]>
+irb(main):082:0> reload!
+Reloading...
+=> true
+irb(main):083:0> b.beers
+=> #<ActiveRecord::Associations::CollectionProxy [#<Beer id: nil, name: "Punk IP
+A", style: "IPA", brewery_id: 5, created_at: nil, updated_at: nil>]>
+irb(main):084:0> Brewery.last
+  Brewery Load (0.0ms)  SELECT  "breweries".* FROM "breweries"   ORDER BY "brewe
+ries"."id" DESC LIMIT 1
+=> #<Brewery id: 5, name: "BrewDog", year: 2007, created_at: "2016-01-25 13:55:4
+1", updated_at: "2016-01-25 13:55:41">
+irb(main):085:0> b = _
+=> #<Brewery id: 5, name: "BrewDog", year: 2007, created_at: "2016-01-25 13:55:4
+1", updated_at: "2016-01-25 13:55:41">
+irb(main):086:0> b.beers
+  Beer Load (0.0ms)  SELECT "beers".* FROM "beers"  WHERE "beers"."brewery_id" =
+ ?  [["brewery_id", 5]]
+=> #<ActiveRecord::Associations::CollectionProxy []>
+irb(main):087:0>
+irb(main):088:0*
+irb(main):089:0*
+irb(main):090:0*
+irb(main):091:0* b
+=> #<Brewery id: 5, name: "BrewDog", year: 2007, created_at: "2016-01-25 13:55:4
+1", updated_at: "2016-01-25 13:55:41">
+irb(main):092:0> b.beers.create name:"Punk IPA", style:"IPA"
+   (0.0ms)  begin transaction
+  SQL (1.0ms)  INSERT INTO "beers" ("brewery_id", "created_at", "name", "style",
+ "updated_at") VALUES (?, ?, ?, ?, ?)  [["brewery_id", 5], ["created_at", "2016-
+01-25 14:24:04.774525"], ["name", "Punk IPA"], ["style", "IPA"], ["updated_at",
+"2016-01-25 14:24:04.774525"]]
+   (6.8ms)  commit transaction
+=> #<Beer id: 13, name: "Punk IPA", style: "IPA", brewery_id: 5, created_at: "20
+16-01-25 14:24:04", updated_at: "2016-01-25 14:24:04">
+irb(main):093:0>
+irb(main):094:0*
+irb(main):095:0*
+irb(main):096:0*
+irb(main):097:0* b.beers
+=> #<ActiveRecord::Associations::CollectionProxy [#<Beer id: 13, name: "Punk IPA
+", style: "IPA", brewery_id: 5, created_at: "2016-01-25 14:24:04", updated_at: "
+2016-01-25 14:24:04">]>
+irb(main):098:0>
+irb(main):099:0*
+irb(main):100:0* b.beers.create name:"Nanny State", style:"lowalcohol"
+   (0.0ms)  begin transaction
+  SQL (0.0ms)  INSERT INTO "beers" ("brewery_id", "created_at", "name", "style",
+ "updated_at") VALUES (?, ?, ?, ?, ?)  [["brewery_id", 5], ["created_at", "2016-
+01-25 14:24:53.948655"], ["name", "Nanny State"], ["style", "lowalcohol"], ["upd
+ated_at", "2016-01-25 14:24:53.948655"]]
+   (10.7ms)  commit transaction
+=> #<Beer id: 14, name: "Nanny State", style: "lowalcohol", brewery_id: 5, creat
+ed_at: "2016-01-25 14:24:53", updated_at: "2016-01-25 14:24:53">
+irb(main):101:0> git status
+NameError: undefined local variable or method `status' for main:Object
+        from (irb):101
+        from C:/RailsInstaller/Ruby2.1.0/lib/ruby/gems/2.1.0/gems/railties-4.1.8
+/lib/rails/commands/console.rb:90:in `start'
+        from C:/RailsInstaller/Ruby2.1.0/lib/ruby/gems/2.1.0/gems/railties-4.1.8
+/lib/rails/commands/console.rb:9:in `start'
+        from C:/RailsInstaller/Ruby2.1.0/lib/ruby/gems/2.1.0/gems/railties-4.1.8
+/lib/rails/commands/commands_tasks.rb:69:in `console'
+        from C:/RailsInstaller/Ruby2.1.0/lib/ruby/gems/2.1.0/gems/railties-4.1.8
+/lib/rails/commands/commands_tasks.rb:40:in `run_command!'
+        from C:/RailsInstaller/Ruby2.1.0/lib/ruby/gems/2.1.0/gems/railties-4.1.8
+/lib/rails/commands.rb:17:in `<top (required)>'
+        from bin/rails:4:in `require'
+        from bin/rails:4:in `<main>'
+irb(main):102:0> bee = b.beers.first
+=> #<Beer id: 13, name: "Punk IPA", style: "IPA", brewery_id: 5, created_at: "20
+16-01-25 14:24:04", updated_at: "2016-01-25 14:24:04">
+irb(main):103:0> bee.ratings.create score:15
+   (0.0ms)  begin transaction
+  SQL (1.0ms)  INSERT INTO "ratings" ("beer_id", "created_at", "score", "updated
+_at") VALUES (?, ?, ?, ?)  [["beer_id", 13], ["created_at", "2016-01-25 14:25:52
+.314183"], ["score", 15], ["updated_at", "2016-01-25 14:25:52.314183"]]
+   (7.0ms)  commit transaction
+=> #<Rating id: 4, score: 15, beer_id: 13, created_at: "2016-01-25 14:25:52", up
+dated_at: "2016-01-25 14:25:52">
+irb(main):104:0>
+irb(main):105:0* bee.ratings
+  Rating Load (0.0ms)  SELECT "ratings".* FROM "ratings"  WHERE "ratings"."beer_
+id" = ?  [["beer_id", 13]]
+=> #<ActiveRecord::Associations::CollectionProxy [#<Rating id: 4, score: 15, bee
+r_id: 13, created_at: "2016-01-25 14:25:52", updated_at: "2016-01-25 14:25:52">]
+>
+irb(main):106:0> bee.ratings.create score:1
+   (0.0ms)  begin transaction
+  SQL (1.0ms)  INSERT INTO "ratings" ("beer_id", "created_at", "score", "updated
+_at") VALUES (?, ?, ?, ?)  [["beer_id", 13], ["created_at", "2016-01-25 14:26:25
+.372056"], ["score", 1], ["updated_at", "2016-01-25 14:26:25.372056"]]
+   (6.4ms)  commit transaction
+=> #<Rating id: 5, score: 1, beer_id: 13, created_at: "2016-01-25 14:26:25", upd
+ated_at: "2016-01-25 14:26:25">
+irb(main):107:0> bee.ratings.create score:90
+   (1.0ms)  begin transaction
+  SQL (0.0ms)  INSERT INTO "ratings" ("beer_id", "created_at", "score", "updated
+_at") VALUES (?, ?, ?, ?)  [["beer_id", 13], ["created_at", "2016-01-25 14:26:31
+.691617"], ["score", 90], ["updated_at", "2016-01-25 14:26:31.691617"]]
+   (6.8ms)  commit transaction
+=> #<Rating id: 6, score: 90, beer_id: 13, created_at: "2016-01-25 14:26:31", up
+dated_at: "2016-01-25 14:26:31">
+irb(main):108:0> bee = b.ratings.last
+NoMethodError: undefined method `ratings' for #<Brewery:0x5dda418>
+        from C:/RailsInstaller/Ruby2.1.0/lib/ruby/gems/2.1.0/gems/activemodel-4.
+1.8/lib/active_model/attribute_methods.rb:435:in `method_missing'
+        from C:/RailsInstaller/Ruby2.1.0/lib/ruby/gems/2.1.0/gems/activerecord-4
+.1.8/lib/active_record/attribute_methods.rb:213:in `method_missing'
+        from (irb):108
+        from C:/RailsInstaller/Ruby2.1.0/lib/ruby/gems/2.1.0/gems/railties-4.1.8
+/lib/rails/commands/console.rb:90:in `start'
+        from C:/RailsInstaller/Ruby2.1.0/lib/ruby/gems/2.1.0/gems/railties-4.1.8
+/lib/rails/commands/console.rb:9:in `start'
+        from C:/RailsInstaller/Ruby2.1.0/lib/ruby/gems/2.1.0/gems/railties-4.1.8
+/lib/rails/commands/commands_tasks.rb:69:in `console'
+        from C:/RailsInstaller/Ruby2.1.0/lib/ruby/gems/2.1.0/gems/railties-4.1.8
+/lib/rails/commands/commands_tasks.rb:40:in `run_command!'
+        from C:/RailsInstaller/Ruby2.1.0/lib/ruby/gems/2.1.0/gems/railties-4.1.8
+/lib/rails/commands.rb:17:in `<top (required)>'
+        from bin/rails:4:in `require'
+        from bin/rails:4:in `<main>'
+irb(main):109:0> bee = b.beers.last
+=> #<Beer id: 14, name: "Nanny State", style: "lowalcohol", brewery_id: 5, creat
+ed_at: "2016-01-25 14:24:53", updated_at: "2016-01-25 14:24:53">
+irb(main):110:0> bee.ratings.create score:55
+   (0.0ms)  begin transaction
+  SQL (0.0ms)  INSERT INTO "ratings" ("beer_id", "created_at", "score", "updated
+_at") VALUES (?, ?, ?, ?)  [["beer_id", 14], ["created_at", "2016-01-25 14:27:32
+.868737"], ["score", 55], ["updated_at", "2016-01-25 14:27:32.868737"]]
+   (6.2ms)  commit transaction
+=> #<Rating id: 7, score: 55, beer_id: 14, created_at: "2016-01-25 14:27:32", up
+dated_at: "2016-01-25 14:27:32">
+irb(main):111:0> bee.ratings.create score:40
+   (0.0ms)  begin transaction
+  SQL (1.0ms)  INSERT INTO "ratings" ("beer_id", "created_at", "score", "updated
+_at") VALUES (?, ?, ?, ?)  [["beer_id", 14], ["created_at", "2016-01-25 14:27:40
+.252413"], ["score", 40], ["updated_at", "2016-01-25 14:27:40.252413"]]
+   (7.2ms)  commit transaction
+=> #<Rating id: 8, score: 40, beer_id: 14, created_at: "2016-01-25 14:27:40", up
+dated_at: "2016-01-25 14:27:40">
+irb(main):112:0> bee.ratings.create score:3
+   (0.0ms)  begin transaction
+  SQL (0.0ms)  INSERT INTO "ratings" ("beer_id", "created_at", "score", "updated
+_at") VALUES (?, ?, ?, ?)  [["beer_id", 14], ["created_at", "2016-01-25 14:27:43
+.980089"], ["score", 3], ["updated_at", "2016-01-25 14:27:43.980089"]]
+   (7.0ms)  commit transaction
+=> #<Rating id: 9, score: 3, beer_id: 14, created_at: "2016-01-25 14:27:43", upd
+ated_at: "2016-01-25 14:27:43">
+irb(main):113:0> ^C
+irb(main):113:0>
