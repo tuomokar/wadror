@@ -1,6 +1,6 @@
 class Beer < ActiveRecord::Base
   belongs_to :brewery
-  has_many :ratings
+  has_many :ratings, dependent: :destroy
 
   # if there are no ratings, returns zero, otherwise returns average of scores of ratings
   def average_rating
