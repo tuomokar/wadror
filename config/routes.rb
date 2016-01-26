@@ -3,10 +3,17 @@ Rails.application.routes.draw do
 
   resources :breweries
 
-  # the default template:
+  # the default template at root:
   root 'breweries#index'
 
+  # ratings default
   get 'ratings', to: 'ratings#index'
+
+  # creating a new rating
+  get 'ratings/new', to:'ratings#new'
+
+  # posting a new rating
+  post 'ratings', to: 'ratings#create'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
