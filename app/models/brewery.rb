@@ -1,4 +1,7 @@
 class Brewery < ActiveRecord::Base
+  # module to count average ratings
+  include RatingAverage
+
   has_many :beers, dependent: :destroy
   has_many :ratings, through: :beers
 
@@ -6,7 +9,4 @@ class Brewery < ActiveRecord::Base
     self.name
   end
 
-  def average_rating
-    self.ratings.count == 0 ? 0 : self.ratings.average(:score).round(2)
-  end
 end
