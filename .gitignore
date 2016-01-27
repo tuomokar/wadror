@@ -18,3 +18,6 @@
 # Ignore a couple of files created by RubyMine
 .idea/workspace.xml
 .idea/tasks.xml
+
+# Ignore byebug history
+.byebug_history
