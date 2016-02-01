@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
   resources :ratings, only: [:index, :new, :create, :destroy]
 
+  resource :session, only: [:new, :create, :destroy]
+
   # the default template at root:
   root 'breweries#index'
 
