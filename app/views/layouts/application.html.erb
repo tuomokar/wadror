@@ -14,7 +14,7 @@
   <%= link_to 'ratings', ratings_path %>
 </div>
 
-<% if session [:last_rating].nil? %>
+<% if session[:last_rating].nil? %>
     <p>no ratings given</p>
 <% else %>
     <p>previous rating: <%= session[:last_rating] %></p>
