@@ -15,6 +15,12 @@ Rails.application.routes.draw do
   # alternative route for signing up
   get 'signup', to: 'users#new'
 
+  # more natural route for signing in
+  get 'signin', to: 'sessions#new'
+
+  # route for signing out
+  delete 'signout', to: 'sessions#destroy'
+
   # ratings default
   ## get 'ratings', to: 'ratings#index'
 
