@@ -10,6 +10,9 @@ Rails.application.routes.draw do
   # the default template at root:
   root 'breweries#index'
 
+  # alternative route for signing up
+  get 'signup', to: 'users#new'
+
   # ratings default
   ## get 'ratings', to: 'ratings#index'
 
