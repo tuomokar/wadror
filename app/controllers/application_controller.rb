@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   # defines method to be used visbile in views
-  helper_method :current_uesr
+  helper_method :current_user
 
   def current_user
     return nil if session[:user_id].nil?
