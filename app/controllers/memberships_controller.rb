@@ -27,7 +27,7 @@ class MembershipsController < ApplicationController
   def create
     @membership = Membership.new(membership_params)
     respond_to do |format|
-      if @membership.save
+      if membership_is_unique and @membership.save
         current_user.memberships << @membership
         format.html { redirect_to @membership, notice: 'Membership was successfully created.' }
         format.json { render :show, status: :created, location: @membership }
