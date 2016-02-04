@@ -10,9 +10,7 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       redirect_to user, notice: "Welcome back!"
     else
-      redirect_to :back, notice: "User #{params[:username]} does not exist!"
-      session[:user_id] = user.id
-      redirect_to user, notice: "Welcome back!"
+      redirect_to :back
     end
   end
 
