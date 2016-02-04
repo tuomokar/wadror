@@ -9,8 +9,8 @@ class User < ActiveRecord::Base
 
   validates_format_of :password, with: /(?=.*\d)(?=.*([A-Z]))/, :message => "must have at least one capital letter and one digit"
 
-  has_many :ratings
+  has_many :ratings, dependent: :destroy
   has_many :beers, through: :ratings
-  has_many :memberships
+  has_many :memberships, dependent: :destroy
   has_many :beer_clubs, through: :memberships
 end
