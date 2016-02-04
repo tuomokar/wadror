@@ -26,7 +26,6 @@ class MembershipsController < ApplicationController
   # POST /memberships.json
   def create
     @membership = Membership.new(membership_params)
-    #byebug
     respond_to do |format|
       if membership_is_unique && @membership.save
         current_user.memberships << @membership
@@ -65,18 +64,17 @@ class MembershipsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_membership
-      @membership = Membership.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_membership
+    @membership = Membership.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def membership_params
-      params.require(:membership).permit(:beer_club_id, :user_id)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def membership_params
+    params.require(:membership).permit(:beer_club_id, :user_id)
+  end
 
-    def membership_is_unique
-      #byebug
-      (current_user.beer_clubs.find @membership.beer_club_id).nil?
-    end
+  def membership_is_unique
+    (current_user.beer_clubs.find_by @membership.beer_club_id).nil?
+  end
 end
