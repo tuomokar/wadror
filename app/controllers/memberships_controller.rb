@@ -26,11 +26,12 @@ class MembershipsController < ApplicationController
   # POST /memberships.json
   def create
     @membership = Membership.new(membership_params)
+    @membership.user_id = current_user.id
     respond_to do |format|
       if @membership.save
-        current_user.memberships << @membership
         format.html { redirect_to @membership, notice: 'Membership was successfully created.' }
         format.json { render :show, status: :created, location: @membership }
+        byebug
       else
         @beer_clubs = BeerClub.all
         format.html { render :new }
@@ -72,9 +73,5 @@ class MembershipsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def membership_params
     params.require(:membership).permit(:beer_club_id)
-  end
-
-  def membership_is_unique
-    (current_user.beer_clubs.find_by @membership.beer_club_id).nil?
   end
 end
