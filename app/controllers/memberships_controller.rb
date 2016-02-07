@@ -14,8 +14,9 @@ class MembershipsController < ApplicationController
 
   # GET /memberships/new
   def new
+    beer_clubs_without_user = BeerClub.all.select{ |club| not club.users.find_by username:current_user.username}
     @membership = Membership.new
-    @beer_clubs = BeerClub.all
+    @beer_clubs = beer_clubs_without_user
   end
 
   # GET /memberships/1/edit
