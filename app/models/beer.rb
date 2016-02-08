@@ -4,7 +4,6 @@ class Beer < ActiveRecord::Base
 
   validates :name, presence: true
   validates :style, presence: true
-  validates_uniqueness_of :name
 
   belongs_to :brewery
   has_many :ratings, dependent: :destroy
