@@ -3,6 +3,7 @@ class Beer < ActiveRecord::Base
   include RatingAverage
 
   validates :name, presence: true
+  validates :style, presence: true
   validates_uniqueness_of :name
 
   belongs_to :brewery
