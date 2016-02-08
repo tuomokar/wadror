@@ -6,6 +6,7 @@ group :development, :test do
   gem 'byebug'
   gem 'web-console', '~> 2.0'
   gem "better_errors"
+  gem 'rspec-rails', '~> 3.0'
 end
 
 # Uses PostgreSQL in production mode
