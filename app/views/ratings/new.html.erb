@@ -1,6 +1,6 @@
 <h2>Create new rating</h2>
 
-<% if current_user.nil? %>
+<% unless current_user.nil? %>
 <%= form_for(@rating) do |f| %>
 
     <% if @rating.errors.any? %>
