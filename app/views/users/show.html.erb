@@ -9,7 +9,13 @@
       hasn't made any ratings yet
   <% else %>
       has <%= pluralize(@user.ratings.count, 'rating') %> with an average of <%= @user.average_rating %>
+
+    <p>favorite beer: <%= @user.favorite_beer %></p>
+    <p>favorite style: <%= @user.favorite_style %></p>
+    <p>favorite brewery: <%= @user.favorite_brewery %></p>
   <% end %>
+
+
 </p>
 
 <% unless @user.beer_clubs.empty? %>
