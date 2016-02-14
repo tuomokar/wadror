@@ -1,15 +1,7 @@
-language: ruby
-
-rvm:
- - 2.1.5
-
-script:
- - bundle exec rake db:migrate --trace
- - RAILS_ENV=test bundle exec rake db:migrate --trace
- - bundle exec rake db:test:prepare
- - bundle exec rspec -fd spec/
-
- deploy:
-   provider: heroku
-   api_key:
-   app: ratebeer
+deploy:
+  provider: heroku
+  api_key:
+    secure: u5HRfz2Mly81EvYZVD/ArcLkeCcsRANtLgkgMZpCK8BjzN1Hzz21sunPOJLNXCxUaaOA6r/9aFe1PnfSP2Z7p+OO/2GNtBycExY53FnGY74Mzil/Fw25iPhC8OdUKtw8vRjXyJH820VdwqcLQapYlYqIMVquGPZrDc/wugDk/QSbm39QZgZpd3x8TvHUyH8poTUAi8/lbhepJoICgq11a2S1z12Q4cHSs9Yzsxwwh9UJgHUEaFKPrSg0YqReWggQFI33tr67697ZbGPkBBWIkJnZDtdWOyOTS6XjODPQ5KCtv1FUlDuj+WJ82cm1pP1o4gwNxMzAFS6ahlxegTLblNQ0RwDN5Luss+jhktOooqBMYMwYOYnNhQZdfIY86IOEi6ounWqHzS8dTUOouXObTJLvM0xgoIg1KKMg5/oFf75mmLbfikAe5vLNObXlrLUAQVxRGcOsRxAh6yys9NZlpb7ddl9XcqU5XGx9uXwcpbd80DPnKycQ12VdijnmmDQcRuMuFo8F2oz2zJdqtdPumkcWLoDFAVAJJVYWUawkRrQTm6Z+jDyaSvTD1ObkGVDnea1Kjiza4JwvRI+ZtuvYwwRqh96uDLMRPkDkko08MMLoNBXve+ff94nSEbsRHZBF7U20559NyRwlEdnGvCD9qJzN8HbP8ch2jDBQ3Zypa2g=
+  app: blooming-hollows-23709
+  on:
+    repo: tuomokar/wadror
