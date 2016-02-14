@@ -24,6 +24,8 @@ end
 
 ruby '2.1.5'
 
+gem 'rack', '~> 1.6.4'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'
 
