@@ -11,4 +11,5 @@ script:
 
  deploy:
    provider: heroku
+   api_key:
    app: ratebeer
