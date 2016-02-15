@@ -23,6 +23,7 @@ end
 
 ruby '2.1.5'
 
+gem 'nokogiri', '>= 1.6.7.rc'
 gem 'rack', '~> 1.6.4'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
