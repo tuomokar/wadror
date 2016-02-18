@@ -23,6 +23,11 @@ Rails.application.routes.draw do
   # route for signing out
   delete 'signout', to: 'sessions#destroy'
 
+  # places
+  resources :places, only:[:index, :show]
+  post 'places', to:'places#search'
+
+
   # ratings default
   ## get 'ratings', to: 'ratings#index'
 
