@@ -6,6 +6,7 @@ group :development, :test do
   gem 'byebug'
   gem 'better_errors'
   gem 'rspec-rails', '~> 3.0'
+  gem 'web-console', '~> 2.0'
 end
 
 group :test do
@@ -13,6 +14,7 @@ group :test do
   gem 'capybara'
   gem 'launchy'
   gem 'simplecov', require: false
+  gem 'webmock'
 end
 
 # Uses PostgreSQL in production mode
@@ -25,6 +27,7 @@ ruby '2.1.5'
 
 gem 'nokogiri', '>= 1.6.7.rc'
 gem 'rack', '~> 1.6.4'
+gem 'httparty'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'
