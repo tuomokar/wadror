@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   # defines method to be used visile in views
-  helper_method :current_user, :get_place_location_as_https
+  helper_method :current_user, :get_place_location_as_https, :is_user_member_of_club
 
   def current_user
     return nil if session[:user_id].nil?
@@ -20,5 +20,9 @@ class ApplicationController < ActionController::Base
     return place.blogmap unless Rails.env.production?
 
     url_for(host: place.blogmap, protocol:"https")
+  end
+
+  def is_user_member_of_club
+    @membership.beer_club.users.find { |user| user.username == current_user.username}
   end
 end
