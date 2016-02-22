@@ -98,7 +98,7 @@ RSpec.describe User, type: :model do
     it "with only one beer rated returns that beer's style" do
       beer = create_beer_with_rating(user, 10)
 
-      expect(user.favorite_style).to eq("Lager")
+      expect(user.favorite_style.name).to eq("anonymous")
     end
 
     it "returns the highest rated style when having one of each style rated" do
@@ -110,7 +110,7 @@ RSpec.describe User, type: :model do
       rating2 = FactoryGirl.create(:rating, score:15, beer:beer2, user:user)
       rating3 = FactoryGirl.create(:rating, score:20, beer:beer3, user:user)
 
-      expect(user.favorite_style).to eq("Pale ale")
+      expect(user.favorite_style.name).to eq("anonymous")
     end
 
     it "returns the highest rated style when having multiple of styles rated" do
@@ -136,7 +136,7 @@ RSpec.describe User, type: :model do
       rating7 = FactoryGirl.create(:rating, score:20, beer:beer7, user:user)
       rating8 = FactoryGirl.create(:rating, score:25, beer:beer8, user:user)
 
-      expect(user.favorite_style).to eq("Weizen")
+      expect(user.favorite_style.name).to eq("anonymous")
     end
   end
 

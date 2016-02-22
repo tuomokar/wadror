@@ -102,7 +102,7 @@ describe "User" do
 
         visit user_path(2)
 
-        expect(page).to have_content "favorite style: Lager"
+        expect(page).to have_content "favorite style: anonymous"
       end
     end
 

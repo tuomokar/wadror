@@ -6,6 +6,7 @@ describe Beer do
   before :each do
     FactoryGirl.create :user
     FactoryGirl.create :brewery
+    FactoryGirl.create :style
   end
 
   describe "that is being created" do
@@ -14,7 +15,7 @@ describe Beer do
 
       visit new_beer_path
       fill_in('beer[name]', with:'testBeer1')
-      select('Weizen', from:'beer[style]')
+      select('anonymous', from:'beer[style_id]', :match => :first)
       select('anonymous', from:'beer[brewery_id]')
 
       expect{
@@ -26,7 +27,7 @@ describe Beer do
       sign_in(username:"Pekka", password:"Foobar1")
 
       visit new_beer_path
-      select('Weizen', from:'beer[style]')
+      select('anonymous', from:'beer[style_id]', :match => :first)
       select('anonymous', from:'beer[brewery_id]')
 
       expect{
