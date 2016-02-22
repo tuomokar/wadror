@@ -38,4 +38,7 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 
   config.web_console.development_only = false
+
+  # uses central memory for cache during tests
+  config.cache_store = :memory_store
 end
