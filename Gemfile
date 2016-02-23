@@ -29,6 +29,12 @@ gem 'nokogiri', '>= 1.6.7.rc'
 gem 'rack', '~> 1.6.4'
 gem 'httparty'
 
+# bootstrap
+gem 'bootstrap-sass'
+group :development do
+  gem 'rails_layout'
+end
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'
 
