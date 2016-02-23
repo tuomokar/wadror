@@ -2,12 +2,10 @@
 
 <p>Number of ratings <%= @ratings.count %></p>
 
-<ul>
+<ul class="list-group">
   <% @ratings.each do |rating| %>
-      <li> <%= rating %>, <%= link_to rating.user.username, rating.user %> </li>
+      <li class="list-group-item"> <%= rating %>, <%= link_to rating.user.username, rating.user, class:"label label-info pull-right" %> </li>
   <% end %>
 </ul>
 
-<% unless current_user.nil? %>
-  <p><%= link_to 'New Rating', new_rating_path %></p>
-<% end %>
+<p><%= link_to('New Rating', new_rating_path, class:"btn btn-primary") if current_user %></p>
