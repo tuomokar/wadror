@@ -1,0 +1,7 @@
+<h1>Newest ratings</h1>
+
+<ul class="list-group">
+  <% ratings.each do |rating| %>
+      <li class="list-group-item"> <%= rating %>, <%= link_to rating.user.username, rating.user, class:"label label-info pull-right" %> </li>
+  <% end %>
+</ul>

@@ -51,6 +51,11 @@ class User < ActiveRecord::Base
     find_brewery_by_brewery_name(name)
   end
 
+  def self.top
+    sorted_by_rating_in_desc_order = User.all.sort_by{ |u| -(u.ratings.count) }
+    sorted_by_rating_in_desc_order.take(3)
+  end
+
   private
 
     def find_brewery_by_brewery_name(name)
