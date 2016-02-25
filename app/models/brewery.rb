@@ -1,5 +1,4 @@
 class Brewery < ActiveRecord::Base
-  # module to count average ratings
   include RatingAverage
 
   validate :not_in_future
@@ -7,11 +6,19 @@ class Brewery < ActiveRecord::Base
                                     only_integer: true }
   validates :name, presence: true
 
+  scope :active, -> { where active:true }
+  scope :retired, -> { where active:[nil,false] }
+
   has_many :beers, dependent: :destroy
   has_many :ratings, through: :beers
 
   def to_s
     self.name
+  end
+
+  def self.top
+    sorted_rating_in_desc_order = Brewery.all.sort_by{ |b| -(b.average_rating||0)}
+    sorted_rating_in_desc_order.take(3)
   end
 
   def not_in_future
