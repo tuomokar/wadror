@@ -15,6 +15,11 @@ class ApplicationController < ActionController::Base
     redirect_to signin_path, notice:'you should be signed in' if current_user.nil?
   end
 
+  def ensure_that_signed_in_as_admin
+    redirect_to signin_path, notice:'you should be signed in as admin' if current_user.nil?
+    redirect_to signin_path, notice:'you should be signed in as admin' unless current_user.admin
+  end
+
   def get_place_location_as_https
     place = set_place
     return place.blogmap unless Rails.env.production?
