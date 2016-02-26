@@ -1,8 +1,8 @@
-<p id="notice"><%= notice %></p>
 
 <h2>
-  <%= @user.username %>
+  <%= @user.username %> <span class="label label-info"><%= 'account frozen' if @user.banned %></span>
 </h2>
+
 
 <p>
   <% if @user.ratings.empty? %>
@@ -40,12 +40,15 @@
   <% end %><br>
 
   <div class="btn-group">
-
     <% if @user == current_user %>
-        <%= link_to('Edit', edit_user_path(@user), class:"btn btn-default") %>
-        <%= link_to('Destroy', user_path(@user), method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-default") %>
+        <%= link_to 'Edit', edit_user_path(@user), class:"btn btn-default" %>
+        <%= link_to 'Destroy', user_path(@user), method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-default" %>
     <% end %>
-    <%= link_to 'Back', users_path, class:"btn btn-default" %>
-
   </div>
 
+  <div>
+    <% if admin && !@user.admin %>
+        <%= link_to 'reactivate account', change_ban_status_user_path(@user.id), method: :put, class:"btn btn-danger" if @user.banned %>
+        <%= link_to 'freeze account', change_ban_status_user_path(@user.id), method: :put, class:"btn btn-danger" unless @user.banned %>
+    <% end %>
+  </div>

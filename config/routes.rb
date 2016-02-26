@@ -14,6 +14,10 @@ Rails.application.routes.draw do
     post 'toggle_activity', on: :member
   end
 
+  resources :users do
+    put 'change_ban_status', on: :member
+  end
+
   resource :session, only: [:new, :create, :destroy]
 
   # the default template at root:

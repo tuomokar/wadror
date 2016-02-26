@@ -4,11 +4,16 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   # defines method to be used visile in views
-  helper_method :current_user, :get_place_location_as_https, :is_user_member_of_club
+  helper_method :current_user, :admin, :get_place_location_as_https, :is_user_member_of_club
 
   def current_user
     return nil if session[:user_id].nil?
     User.find_by_id(session[:user_id])
+  end
+
+  def admin
+    return nil unless current_user
+    return current_user.admin
   end
 
   def ensure_that_signed_in
@@ -16,8 +21,7 @@ class ApplicationController < ActionController::Base
   end
 
   def ensure_that_signed_in_as_admin
-    redirect_to signin_path, notice:'you should be signed in as admin' if current_user.nil?
-    redirect_to signin_path, notice:'you should be signed in as admin' unless current_user.admin
+    redirect_to signin_path, notice:'you should be signed in as admin' unless admin
   end
 
   def get_place_location_as_https
