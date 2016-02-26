@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
     return nil if ratings.empty?
 
     rated = ratings.map{ |r| r.beer.send(category) }.uniq
-    rated.sort_by { |item| -rating
+    rated.sort_by { |item| -rating_of(category, item) }.first
   end
 
   def rating_of(category, item)
