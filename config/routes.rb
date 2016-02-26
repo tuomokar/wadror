@@ -10,6 +10,10 @@ Rails.application.routes.draw do
 
   resources :ratings, only: [:index, :new, :create, :destroy]
 
+  resources :breweries do
+    post 'toggle_activity', on: :member
+  end
+
   resource :session, only: [:new, :create, :destroy]
 
   # the default template at root:
