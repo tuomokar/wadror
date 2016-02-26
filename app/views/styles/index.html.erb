@@ -20,7 +20,7 @@
         <td><%= link_to 'Show', style, class:"btn btn-default" %></td>
         <% if current_user %>
             <td><%= link_to 'Edit', edit_style_path(style), class:"btn btn-default" %></td>
-            <td><%= link_to 'Destroy', style, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-default" %></td>
+            <td><%= link_to 'Destroy', style, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger" if current_user.admin %></td>
         <% end %>
       </tr>
   <% end %>
