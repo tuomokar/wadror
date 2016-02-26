@@ -30,14 +30,15 @@ describe "Rating" do
 
     it "is zero when no rating has been done" do
       visit ratings_path
-      expect(page).to have_content 'Number of ratings 0'
+
+      expect(page.html).to_not include('<li class="list-group-item">')
     end
 
     it "is one when a rating has been done" do
       FactoryGirl.create(:rating, score:10, beer:beer1, user:user)
 
       visit ratings_path
-      expect(page).to have_content 'Number of ratings 1'
+      expect(page.html).to include('<li class="list-group-item">')
     end
   end
 end
