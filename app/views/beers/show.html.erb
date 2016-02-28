@@ -22,7 +22,7 @@
         score: <%= f.number_field :score %>
         <%= f.submit class:"btn btn-primary" %>
     <% end %>
-
-    <%= link_to 'Edit', edit_beer_path(@beer) %>
-
 <% end %>
+<br>
+
+<%= edit_and_destroy_buttons(@beer) %>
