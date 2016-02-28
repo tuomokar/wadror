@@ -9,7 +9,8 @@
       <h3>Memberships:</h3>
       <ul class="list-group">
         <% @user.beer_clubs.each do |club| %>
-            <li class="list-group-item"><%= link_to club.name, club %></li>
+            <% date = get_membership(@user, club).created_at %>
+            <li class="list-group-item"><%= link_to club.name, club %>, since <%= date.strftime('%a %d %b %Y') %></li>
         <% end %>
       </ul>
       </div>
