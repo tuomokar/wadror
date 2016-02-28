@@ -3,42 +3,69 @@
   <%= @user.username %> <span class="label label-info"><%= 'account frozen' if @user.banned %></span>
 </h2>
 
-
-<p>
-  <% if @user.ratings.empty? %>
-      hasn't made any ratings yet
-  <% else %>
-      has <%= pluralize(@user.ratings.count, 'rating') %> with an average of <%= @user.average_rating %>
-      </p>
-      <p>favorite beer: <%= @user.favorite_beer %></p>
-      <p>favorite style: <%= @user.favorite_style %></p>
-      <p>favorite brewery: <%= @user.favorite_brewery %></p>
-  <% end %>
-
-
-
-  <% unless @user.beer_clubs.empty? %>
-      <p>
-        member of
+<% unless @user.beer_clubs.empty? %>
+    <div class="col-xs-12">
+      <div class="col-xs-6 row">
+      <h3>Memberships:</h3>
+      <ul class="list-group">
         <% @user.beer_clubs.each do |club| %>
-            <%= link_to club.name, club %>
+            <li class="list-group-item"><%= link_to club.name, club %></li>
         <% end %>
-      </p>
+      </ul>
+      </div>
+    </div>
+<% end %>
+
+<!-- ratings info -->
+<div class="col-xs-12">
+  <% if @user.ratings.empty? %>
+      <p> hasn't made any ratings yet</p>
+  <% else %>
+      <div class="col-em-12">
+
+        <div class="col-em-12 row">
+          <div class="col-xs-6">
+            <h3>Favorites:</h3>
+            <ul class="list-group">
+              <li class="list-group-item"><span class="col-xs-2"><strong>Beer:</strong></span> <span><%= @user.favorite_beer %></span></li>
+              <li class="list-group-item"><span class="col-xs-2"><strong>Brewery:</strong></span> <span><%= @user.favorite_brewery %></span></li>
+              <li class="list-group-item"><span class="col-xs-2"><strong>Style:</strong></span> <span><%= @user.favorite_style %></span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-xs-12 row">
+          <h3>Ratings</h3>
+          <p>has <%= pluralize(@user.ratings.count, 'rating') %> with an average of <%= @user.average_rating %></p>
+          <div class="col-sm-6">
+            <table class="table table-hover">
+              <thead>
+              <tr>
+                <th class="col-xs-2">beer</th>
+                <th class="col-xs-2">score</th>
+              </tr>
+              </thead>
+
+              <tbody>
+              <% @user.ratings.each do |rating| %>
+                  <tr>
+                    <td><%= link_to rating.beer.name, rating.beer %></td>
+                    <td><%= rating.score %></td>
+                    <% if @user == current_user %>
+                        <td><%= link_to 'delete', rating, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger"%></td>
+                    <% end %>
+                  </tr>
+              <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
   <% end %>
+</div>
+<!-- ratings info end -->
 
-
-
-  <h3>Ratings</h3>
-
-  <% @user.ratings.each do |rating| %>
-      <li>
-        <%= rating.beer.name %>, <%= rating.score %>
-        <% if @user == current_user %>
-            <%= link_to 'delete', rating, method: :delete, data: { confirm: 'Are you sure?' }%>
-        <% end %>
-      </li>
-  <% end %><br>
-
+<div class="col-xs-12">
   <div class="btn-group">
     <% if @user == current_user %>
         <%= link_to 'Edit', edit_user_path(@user), class:"btn btn-default" %>
@@ -52,3 +79,4 @@
         <%= link_to 'freeze account', change_ban_status_user_path(@user.id), method: :put, class:"btn btn-danger" unless @user.banned %>
     <% end %>
   </div>
+</div>
