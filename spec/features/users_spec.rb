@@ -85,7 +85,8 @@ describe "User" do
 
         visit user_path(2)
 
-        expect(page).to have_content "favorite beer: iso 3"
+        expect(page).to have_content "Favorites"
+        expect(page).to have_content "Beer: iso 3"
       end
     end
 
@@ -102,7 +103,8 @@ describe "User" do
 
         visit user_path(2)
 
-        expect(page).to have_content "favorite style: anonymous"
+        expect(page).to have_content "Favorites"
+        expect(page).to have_content "Style: anonymous"
       end
     end
 
@@ -110,7 +112,8 @@ describe "User" do
 
       it "is not shown when user hasn't rated anything" do
         visit user_path(1)
-        expect(page).to_not have_content "favorite brewery"
+        expect(page).to_not have_content "Favorites"
+        expect(page).to_not have_content "Brewery"
       end
 
       it "is shown when user has rated one beer" do
@@ -119,7 +122,8 @@ describe "User" do
 
         visit user_path(2)
 
-        expect(page).to have_content "favorite brewery: Koff"
+        expect(page).to have_content "Favorites"
+        expect(page).to have_content "Brewery: Koff"
       end
     end
 
