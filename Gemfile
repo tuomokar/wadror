@@ -35,6 +35,9 @@ group :development do
   gem 'rails_layout'
 end
 
+# JQuery
+gem 'jquery-turbolinks'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'
 
