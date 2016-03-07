@@ -36,6 +36,14 @@ Rails.application.routes.draw do
   resources :places, only:[:index, :show]
   post 'places', to:'places#search'
 
+  # page for JS functionality
+  get 'beerlist', to:'beers#list'
+
+
+  get 'ngbeerlist', to:'beers#nglist'
+
+  get 'brewerylist', to:'breweries#list'
+
 
   # ratings default
   ## get 'ratings', to: 'ratings#index'

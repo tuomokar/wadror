@@ -1,5 +1,5 @@
 class BreweriesController < ApplicationController
-  before_action :ensure_that_signed_in, except: [:index, :show]
+  before_action :ensure_that_signed_in, except: [:index, :show, :list]
   before_action :ensure_that_signed_in_as_admin, only: [:destroy]
   before_action :set_brewery, only: [:show, :edit, :update, :destroy]
 
@@ -8,6 +8,36 @@ class BreweriesController < ApplicationController
   def index
     @active_breweries = Brewery.active
     @retired_breweries = Brewery.retired
+    @breweries = Brewery.all
+
+    order = params[:order] || 'name'
+    clicked = session[:clicked] || false
+    unless clicked
+      @active_breweries = case order
+                            when 'name' then @active_breweries.sort_by{ |b| b.name}
+                            when 'year' then @active_breweries.sort_by{ |b| b.year }
+                          end
+      @retired_breweries = case order
+                             when 'name' then @retired_breweries.sort_by{ |b| b.name}
+                             when 'year' then @retired_breweries.sort_by{ |b| b.year}
+                           end
+    else
+      order_in_reverse
+    end
+
+    session[:clicked] = (not clicked)
+  end
+
+  def order_in_reverse
+    order = params[:order] || 'name'
+    @active_breweries = case order
+                          when 'name' then @active_breweries.sort_by{ |b| (b.name) }.reverse
+                          when 'year' then @active_breweries.sort_by{ |b| (b.year) }.reverse
+                        end
+    @retired_breweries = case order
+                           when 'name' then @retired_breweries.sort_by{ |b| (b.name) }.reverse
+                           when 'year' then @retired_breweries.sort_by{ |b| (b.year) }.reverse
+                         end
   end
 
   # GET /breweries/1
@@ -71,6 +101,9 @@ class BreweriesController < ApplicationController
     new_status = brewery.active? ? "active" : "retired"
 
     redirect_to :back, notice:"brewery activity status changed to #{new_status}"
+  end
+
+  def list
   end
 
 
