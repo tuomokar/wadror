@@ -37,6 +37,9 @@ group :development do
   gem 'rails_layout'
 end
 
+# track actions
+gem 'rack-mini-profiler'
+
 # JQuery
 gem 'jquery-turbolinks'
 
