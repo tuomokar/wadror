@@ -4,7 +4,8 @@ class MembershipsController < ApplicationController
   # GET /memberships
   # GET /memberships.json
   def index
-    @memberships = Membership.all
+    @confirmed = Membership.confirmed
+    @applications = Membership.in_application_phase
   end
 
   # GET /memberships/1
@@ -31,6 +32,7 @@ class MembershipsController < ApplicationController
     @membership.user_id = current_user.id
     respond_to do |format|
       if @membership.save
+        @membership.confirmed = true
         format.html { redirect_to @membership.beer_club, notice: "#{current_user.username} welcome to the club!" }
         format.json { render :show, status: :created, location: @membership }
       else

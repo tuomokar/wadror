@@ -1,23 +1,27 @@
 <p id="notice"><%= notice %></p>
 
-<h2><%= @brewery.name %>
-  <% if not @brewery.active  %>
-      <span class="label label-info">retired</span>
-  <% end %>
-</h2>
+<% cache @brewery do %>
 
-<p>
-  <em>Established year:</em>
-  <%= @brewery.year %>
-</p>
+    <h2><%= @brewery.name %>
+      <% if not @brewery.active  %>
+          <span class="label label-info">retired</span>
+      <% end %>
+    </h2>
 
-<p>Number of beers: <%= @brewery.beers.count %></p>
+    <p>
+      <em>Established year:</em>
+      <%= @brewery.year %>
+    </p>
 
-<ul>
-  <% @brewery.beers.each do |beer| %>
-      <li><%= link_to beer.name, beer %></li>
-  <% end %>
-</ul>
+    <p>Number of beers: <%= @brewery.beers.count %></p>
+
+    <ul>
+      <% @brewery.beers.each do |beer| %>
+          <li><%= link_to beer.name, beer %></li>
+      <% end %>
+    </ul>
+
+<% end %>
 
 <p>
   <% if @brewery.ratings.empty? %>

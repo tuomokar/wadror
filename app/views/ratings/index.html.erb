@@ -1,24 +1,28 @@
 <h1>Rating statistics</h1>
 
-<div class="col-xs-4">
-  <h2>Best beers</h2>
-  <%= render 'list', best: @best_beers %>
-</div>
+<% cache 'ratings_list', expires_in:10.minutes do %>
 
-<div class="col-xs-4">
-  <h2>Best breweries</h2>
-  <%= render 'list', best: @best_breweries %>
-</div>
+    <div class="col-xs-4">
+      <h2>Best beers</h2>
+      <%= render 'list', best: @best_beers %>
+    </div>
 
-<div class="col-xs-4">
-  <h2>Best styles</h2>
-  <%= render 'list', best: @best_styles %>
-</div>
+    <div class="col-xs-4">
+      <h2>Best breweries</h2>
+      <%= render 'list', best: @best_breweries %>
+    </div>
 
-<div class="col-xs-12">
-<%= render 'most_active_users', users: @users %>
-<%= render 'newest_ratings', ratings: @newest_ratings  %>
-</div>
+    <div class="col-xs-4">
+      <h2>Best styles</h2>
+      <%= render 'list', best: @best_styles %>
+    </div>
+
+    <div class="col-xs-12">
+      <%= render 'most_active_users', users: @users %>
+      <%= render 'newest_ratings', ratings: @newest_ratings  %>
+    </div>
+
+<% end %>
 
 <div class="col-xs-12">
   <p><%= link_to('New Rating', new_rating_path, class:"btn btn-primary") if current_user %></p>

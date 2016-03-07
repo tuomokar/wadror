@@ -22,4 +22,7 @@ class SessionsController < ApplicationController
     reset_session
     redirect_to :root
   end
+
+  def create_oauth
+  end
 end

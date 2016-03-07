@@ -44,6 +44,7 @@ Rails.application.routes.draw do
 
   get 'brewerylist', to:'breweries#list'
 
+  get 'auth/:provider/callback', to: 'sessions#create_oauth'
 
   # ratings default
   ## get 'ratings', to: 'ratings#index'

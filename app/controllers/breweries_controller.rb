@@ -3,6 +3,9 @@ class BreweriesController < ApplicationController
   before_action :ensure_that_signed_in_as_admin, only: [:destroy]
   before_action :set_brewery, only: [:show, :edit, :update, :destroy]
 
+  before_action :clear_cache_fragment, only: [:create, :update, :destroy]
+  before_action :skip_if_cached, only: [:index]
+
   # GET /breweries
   # GET /breweries.json
   def index
@@ -10,14 +13,13 @@ class BreweriesController < ApplicationController
     @retired_breweries = Brewery.retired
     @breweries = Brewery.all
 
-    order = params[:order] || 'name'
     clicked = session[:clicked] || false
     unless clicked
-      @active_breweries = case order
+      @active_breweries = case @order
                             when 'name' then @active_breweries.sort_by{ |b| b.name}
                             when 'year' then @active_breweries.sort_by{ |b| b.year }
                           end
-      @retired_breweries = case order
+      @retired_breweries = case @order
                              when 'name' then @retired_breweries.sort_by{ |b| b.name}
                              when 'year' then @retired_breweries.sort_by{ |b| b.year}
                            end
@@ -29,12 +31,11 @@ class BreweriesController < ApplicationController
   end
 
   def order_in_reverse
-    order = params[:order] || 'name'
-    @active_breweries = case order
+    @active_breweries = case @order
                           when 'name' then @active_breweries.sort_by{ |b| (b.name) }.reverse
                           when 'year' then @active_breweries.sort_by{ |b| (b.year) }.reverse
                         end
-    @retired_breweries = case order
+    @retired_breweries = case @order
                            when 'name' then @retired_breweries.sort_by{ |b| (b.name) }.reverse
                            when 'year' then @retired_breweries.sort_by{ |b| (b.year) }.reverse
                          end
@@ -116,5 +117,14 @@ class BreweriesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def brewery_params
       params.require(:brewery).permit(:name, :year, :active)
+    end
+
+    def clear_cache_fragment
+      ["brewerylist-name", "brewerylist-year"].each{ |f| expire_fragment(f) }
+    end
+
+    def skip_if_cached
+      @order = params[:order] || 'name'
+      return render :index if fragment_exist?( "beerlist-#{@order}"  )
     end
 end

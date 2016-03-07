@@ -40,6 +40,8 @@ end
 # track actions
 gem 'rack-mini-profiler'
 
+gem 'omniauth-github'
+
 # JQuery
 gem 'jquery-turbolinks'
 

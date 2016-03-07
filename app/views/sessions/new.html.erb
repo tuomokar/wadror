@@ -6,4 +6,8 @@
   username <%= text_field_tag :username, params[:username] %>
   password <%= password_field_tag :password, params[:password] %>
   <%= submit_tag "Log in" %>
+<% end %><br>
+
+<%= form_tag 'auth/github' do %>
+    <%= submit_tag "Log in with github", class:"btn btn-success" %>
 <% end %>

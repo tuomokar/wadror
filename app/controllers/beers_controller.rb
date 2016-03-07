@@ -3,15 +3,15 @@ class BeersController < ApplicationController
   before_action :set_breweries_and_styles_for_template, only: [:new, :edit]
   before_action :ensure_that_signed_in, except: [:index, :show, :list, :nglist]
   before_action :ensure_that_signed_in_as_admin, only: [:destroy]
+  before_action :clear_cache_fragment, only: [:create, :update, :destroy]
+  before_action :skip_if_cached, only: [:index]
 
   # GET /beers
   # GET /beers.json
   def index
     @beers = Beer.includes(:brewery, :style).all
 
-    order = params[:order] || 'name'
-
-    @beers = case order
+    @beers = case @order
                when 'name' then @beers.sort_by{ |b| b.name}
                when 'brewery' then @beers.sort_by{ |b| b.brewery.name }
                when 'style' then @beers.sort_by{ |b| b.style.name }
@@ -94,5 +94,14 @@ class BeersController < ApplicationController
     def set_breweries_and_styles_for_template
       @breweries = Brewery.all
       @styles = Style.all
+    end
+
+    def clear_cache_fragment
+      ["beerlist-name", "beerlist-brewery", "beerlist-style"].each{ |f| expire_fragment(f) }
+    end
+
+    def skip_if_cached
+      @order = params[:order] || 'name'
+      return render :index if fragment_exist?( "beerlist-#{@order}"  )
     end
 end
